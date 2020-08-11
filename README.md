@@ -1,5 +1,4 @@
-# mee6-but-better
-MEE6 but better :)
+# aria
 
 node 10+ required for this.
 git required: https://git-scm.com/downloads
