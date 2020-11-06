@@ -2,7 +2,7 @@
   "name": "faith",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "faith.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,6 @@
     "enmap": "^5.2.4",
     "moment": "^2.24.0",
     "ms": "^2.1.2",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
