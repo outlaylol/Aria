@@ -175,7 +175,7 @@ client.on('message', async (msg) => {
           if (client.profile.get(`${msg.guild.id}-${msg.author.id}`, "level") === 0) {
           	        client.profile.set(`${msg.guild.id}-${msg.author.id}`, 1, "level");
           } else if(client.profile.get(`${msg.guild.id}-${msg.author.id}`, "level") > 0) {
-          client.channels.get(channel).send(message.replace('{user}', msg.author).replace('{level}', curLevel))
+          client.channels.cache.get(channel).send(message.replace('{user}', msg.author).replace('{level}', curLevel))
           }
 
 
@@ -375,10 +375,10 @@ client.on('guildMemberAdd', (member) => {
   if (!member.guild.channels.get(channel)) return;
 
   if(array[1].embed === true) {
-    client.channels.get(channel).send(embed)
+    client.channels.cache.get(channel).send(embed)
     return;
   } else if(array[1].embed === false) {
-    client.channels.get(channel).send(array[0].message.replaceAll("{user}", member.user).replaceAll("{usertag}", member.user.tag).replaceAll("{members}", member.guild.memberCount).replaceAll("{userid}", member.user.id).replaceAll("{servername}", member.guild.name))
+    client.channels.cache.get(channel).send(array[0].message.replaceAll("{user}", member.user).replaceAll("{usertag}", member.user.tag).replaceAll("{members}", member.guild.memberCount).replaceAll("{userid}", member.user.id).replaceAll("{servername}", member.guild.name))
     return;
   }
 
@@ -391,7 +391,7 @@ String.prototype.replaceAll = function(search, replacement) {
 
 client.on('voiceStateUpdate', (oldMember, newMember) => {
 
-  if (!client.channels.get(client.settings.get(oldMember.guild.id, "userchannelcreate").channel) || !client.channels.get(client.settings.get(oldMember.guild.id, "userchannelcreate").category)) return;
+  if (!client.channels.cache.get(client.settings.get(oldMember.guild.id, "userchannelcreate").channel) || !client.channels.cache.get(client.settings.get(oldMember.guild.id, "userchannelcreate").category)) return;
 
   
 
@@ -401,9 +401,9 @@ client.on('voiceStateUpdate', (oldMember, newMember) => {
   if (oldMember.channel.members.size <= 0) oldMember.member.user.send("You have left a personal voice channel, it will be removed in 30 seconds unless you join back. (because it is empty)")
   setTimeout(() => {
   if (oldMember.channel.members.size <= 0) {
-      if(!client.channels.get(oldMember.channelID)) return;
+      if(!client.channels.cache.get(oldMember.channelID)) return;
       client.settings.delete(oldMember.guild.id, `userchannels.${client.settings.get(oldMember.guild.id, "userchannels").findIndex(obj => obj.channel === oldMember.channelID)}`)
-      client.channels.get(oldMember.channelID).delete()
+      client.channels.cache.get(oldMember.channelID).delete()
 
   }
 }, 30000);
@@ -457,5 +457,5 @@ return;
 
 
 
-  client.login("")
+  client.login(process.env.TOKEN)
 
